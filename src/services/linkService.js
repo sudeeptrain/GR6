@@ -1,0 +1,19 @@
+import connectionPool from "../config/db.js";
+import { generatedCode } from "../utils/codeGenerator.js";
+
+export async function createShortLink(url,expiresAt=null) {
+    for(let i=0; i<5;i++){
+        const code = generatedCode();
+        try {
+            const {rows} = await connectionPool.query(
+                `insert into links(code,url,expires_at) 
+                    values($1,$2,$3) returning id,code,url,created_at,expires_at`,
+                    [code,url,expiresAt]
+            );
+            return rows[0];
+        } catch (err) {
+            if(err.code != 23505 ) throw err; // unique violation code 
+        }
+    }
+    throw new Error("Link not submitted error")
+}
