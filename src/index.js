@@ -4,13 +4,19 @@ import morgan from "morgan";
 import connectionPool from "./config/db.js";
 import healthRouter from "./routes/healthRoute.js";
 import shortenRouter from "./routes/shortenRoute.js";
+import cors from "cors";
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 // middleware
 app.use(express.json());
-
+// cors
+app.use(cors({
+    origin:process.env.FRONTEND_URL
+}))
+//logger
+app.use(morgan("dev"));
 // routing
 
 app.use("/health",healthRouter);
