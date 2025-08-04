@@ -12,9 +12,7 @@ const PORT = process.env.PORT || 3000;
 // middleware
 app.use(express.json());
 // cors
-app.use(cors({
-    origin:process.env.FRONTEND_URL
-}))
+app.use(cors());
 //logger
 app.use(morgan("dev"));
 // routing

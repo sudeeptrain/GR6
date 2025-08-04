@@ -10,7 +10,6 @@ shortenRouter.post("/",async (req,res)=>{
     if(!url) 
         res.json({"message":"NO url provided"}) ;
     try {
-        
         const linkRecord = await createShortLink(url);
         console.log(linkRecord);
         res.status(201).json({

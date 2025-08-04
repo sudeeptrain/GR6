@@ -17,3 +17,10 @@ export async function createShortLink(url,expiresAt=null) {
     }
     throw new Error("Link not submitted error")
 }
+
+// function to get the original url for the given short code
+export async function findLinkUrlByCode(code){
+    const {rows} = await connectionPool.query(
+        "select * from links where code=$1",[code]);
+    return rows[0] || null;
+}
