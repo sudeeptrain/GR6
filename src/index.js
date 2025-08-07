@@ -5,6 +5,7 @@ import connectionPool from "./config/db.js";
 import healthRouter from "./routes/healthRoute.js";
 import shortenRouter from "./routes/shortenRoute.js";
 import cors from "cors";
+import redirectRouter from "./routes/redirectRoute.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(morgan("dev"));
 
 app.use("/health",healthRouter);
 app.use("/shorten",shortenRouter);
+app.use("/",redirectRouter);
 // app.get("/health",(req,res)=>{
 //     res.status(200).json({message:"OK"});
 // });
